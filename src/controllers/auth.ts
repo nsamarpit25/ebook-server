@@ -15,10 +15,15 @@ export const generateAuthLink: RequestHandler = async (req, res) => {
     user = await userModel.create({ email });
   }
 
+  const userId = user._id.toString();
+
+  // if we already have token for the user it will remove that first
+  await VerificationTokenModel.findOneAndDelete({ userId });
+
   const randomToken = crypto.randomBytes(36).toString("hex");
 
   await VerificationTokenModel.create<{ userId: string }>({
-    userId: user._id.toString(),
+    userId,
     token: randomToken,
   });
 
