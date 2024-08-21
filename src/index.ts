@@ -1,6 +1,20 @@
-import { add } from "@/test/math";
+import "./db/connect";
+import express from "express";
+import authRouter from "./routes/auth";
 
-const a = 1;
-const b = 2;
+// defining port
+const port = process.env.PORT || 8000;
 
-console.log("Sum of a and b is: ", add(a, b));
+// creating app
+const app = express();
+
+//middlewares
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+//routes
+app.use("/auth", authRouter);
+
+app.listen(port, () => {
+  console.log(`listening on port ${port}`);
+});
