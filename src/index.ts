@@ -5,6 +5,7 @@ import authRouter from "./routes/auth.router";
 import { errorHandler } from "./middlewares/error";
 import cookieParser from "cookie-parser";
 import { fileParser } from "./middlewares/file";
+import authorRouter from "./routes/author.router";
 
 // defining port
 const port = process.env.PORT || 8000;
@@ -19,6 +20,7 @@ app.use(cookieParser());
 
 //routes
 app.use("/auth", authRouter);
+app.use("/author", authorRouter);
 
 app.post("/test", fileParser, (req, res) => {
   // console.log(req.body);
