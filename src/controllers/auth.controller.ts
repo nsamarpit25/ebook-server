@@ -1,14 +1,14 @@
 import { RequestHandler } from "express";
 
 import crypto from "crypto";
-import VerificationTokenModel from "../models/verificationToken.model";
-import userModel from "../models/user.model";
-import mail from "../utils/mail";
-import { formatUserProfile, sendErrorResponse } from "../utils/helper";
 import "dotenv/config";
+import userModel from "../models/user.model";
+import VerificationTokenModel from "../models/verificationToken.model";
+import { formatUserProfile, sendErrorResponse } from "../utils/helper";
+import mail from "../utils/mail";
 
+import { updateAvatarToCloudinary } from "@/utils/fileUpload";
 import jwt from "jsonwebtoken";
-import { strict } from "assert";
 
 export const generateAuthLink: RequestHandler = async (req, res) => {
   // generate authentication link
@@ -90,7 +90,12 @@ export const verifyAuthToken: RequestHandler = async (req, res) => {
     expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
   });
 
-  // res.redirect(`${process.env.AUTH_SUCCESS_URL}?profile=${JSON.stringify(formatUserProfile(user))}`)
+  // res.redirect(
+  //   `${process.env.AUTH_SUCCESS_URL}?profile=${JSON.stringify(
+  //     formatUserProfile(user)
+  //   )}`
+  // );
+
   res.send();
 };
 
@@ -100,4 +105,34 @@ export const sendProfileInfo: RequestHandler = (req, res) => {
 
 export const logout: RequestHandler = (req, res) => {
   res.clearCookie("authToken").send();
+};
+
+export const updateProfile: RequestHandler = async (req, res) => {
+  const user = await userModel.findByIdAndUpdate(
+    req.user.id,
+    {
+      name: req.body.name,
+      signedUp: true,
+    },
+    { new: true }
+  );
+
+  if (!user) {
+    return sendErrorResponse({
+      res,
+      status: 500,
+      message: "Something went wrong user not found",
+    });
+  }
+
+  // if there is a file add new file and update its url to the database
+  const file = req.files.avatar;
+  if (file && !Array.isArray(file)) {
+    const avatar = await updateAvatarToCloudinary(file, user.avatar?.id);
+    user.avatar = avatar
+
+    await user.save();
+  }
+
+  res.json({ profile: formatUserProfile(user) });
 };

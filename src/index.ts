@@ -4,6 +4,7 @@ import express from "express";
 import authRouter from "./routes/auth.router";
 import { errorHandler } from "./middlewares/error";
 import cookieParser from "cookie-parser";
+import { fileParser } from "./middlewares/file";
 
 // defining port
 const port = process.env.PORT || 8000;
@@ -14,14 +15,19 @@ const app = express();
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser())
+app.use(cookieParser());
 
 //routes
 app.use("/auth", authRouter);
 
+app.post("/test", fileParser, (req, res) => {
+  // console.log(req.body);
+  console.log(req.files);
+  res.json({});
+});
+
 // middleware to handle errors
 app.use(errorHandler);
-
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });
