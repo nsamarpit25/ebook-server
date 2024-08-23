@@ -9,6 +9,16 @@ export const emailValidationSchema = {
     .email("Zod says it is invalid email"),
 };
 
+export const newUserSchema = {
+  name: z
+    .string({
+      required_error: "Name is missing",
+      invalid_type_error: "Invalid name!",
+    })
+    .min(3, "Name must be three characters long")
+    .trim(),
+};
+
 export const validate = <T extends ZodRawShape>(obj: T): RequestHandler => {
   return (req, res, next) => {
     const schema = z.object(obj);
