@@ -170,3 +170,8 @@ export const updateBook: UpdateBookRequestHandler = async (req, res) => {
 
   res.send();
 };
+
+
+export const getAllBooks = ()=>{
+  
+}

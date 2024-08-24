@@ -28,4 +28,6 @@ bookRouter.patch(
   updateBook
 );
 
+bookRouter.get('/list', isAuth, getAllBooks)
+
 export default bookRouter;
