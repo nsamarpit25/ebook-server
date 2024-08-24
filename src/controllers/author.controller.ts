@@ -7,7 +7,6 @@ import { RequestHandler } from "express";
 
 export const registerAuthor: RequestAuthorHandler = async (req, res) => {
   const { body, user } = req;
-  console.log(body, user);
   if (!user.signedUp) {
     return sendErrorResponse({
       message: "User must be signed up before registering as an author!!",
@@ -36,7 +35,7 @@ export const registerAuthor: RequestAuthorHandler = async (req, res) => {
     role: "author",
   });
 
-  res.json({ messsage: "Thanks for registering as an author." });
+  res.json({ message: "Thanks for registering as an author." });
 };
 
 export const getAuthorDetails: RequestHandler = async (req, res) => {
@@ -57,7 +56,18 @@ export const getAuthorDetails: RequestHandler = async (req, res) => {
     id: author._id,
     name: author.name,
     about: author.about,
-    socialLinks: author.socialLinks
-    
+    socialLinks: author.socialLinks,
   });
+};
+
+export const updateAuthor: RequestAuthorHandler = async (req, res) => {
+  const { body, user } = req;
+
+  await AuthorModel.findByIdAndUpdate(user.authorId, {
+    name: body.name,
+    about: body.about,
+    socialLinks: body.socialLinks,
+  });
+
+  res.json({ message: "Your details have been updated successfully." });
 };

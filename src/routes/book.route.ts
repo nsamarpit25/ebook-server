@@ -4,9 +4,16 @@ import {
   validate,
 } from "../middlewares/validator";
 import { fileParser } from "../middlewares/file";
-import { isAuth, isAuthor } from "../middlewares/isAuth";
+import { isAuth, isAuthor, isPurchasedByUser } from "../middlewares/isAuth";
 import { Router } from "express";
-import { createNewBook, updateBook } from "../controllers/book.controller";
+import {
+  createNewBook,
+  generateBookAccessUrl,
+  getAllPurchasedBooks,
+  getBookByGenre,
+  getBooksPublicDetails,
+  updateBook,
+} from "../controllers/book.controller";
 
 const bookRouter = Router();
 
@@ -28,6 +35,9 @@ bookRouter.patch(
   updateBook
 );
 
-bookRouter.get('/list', isAuth, getAllBooks)
+bookRouter.get("/list", isAuth, getAllPurchasedBooks);
+bookRouter.get("/details/:slug", getBooksPublicDetails);
+bookRouter.get("/by-genre/:genre", getBookByGenre);
+bookRouter.get('/read/:slug', isAuth, generateBookAccessUrl);
 
 export default bookRouter;
