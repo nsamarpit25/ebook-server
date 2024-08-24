@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import { formatUserProfile, sendErrorResponse } from "../utils/helper";
 import { RequestHandler } from "express-serve-static-core";
 import userModel from "../models/user.model";
+import { AddReviewRequestHandler } from "../types";
 
 declare global {
   namespace Express {
@@ -57,4 +58,25 @@ export const isAuthor: RequestHandler = (req, res, next) => {
       status: 401,
     });
   }
+};
+
+export const isPurchasedByUser: AddReviewRequestHandler = async (
+  req,
+  res,
+  next
+) => {
+  const user = await userModel.findOne({
+    _id: req.user.id,
+    books: req.body.bookId,
+  });
+
+  if (!user) {
+    return sendErrorResponse({
+      status: 403,
+      message: "You are not allowed to add review for this book.",
+      res,
+    });
+  }
+
+  next();
 };
