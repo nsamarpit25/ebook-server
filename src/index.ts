@@ -8,6 +8,8 @@ import { fileParser } from "./middlewares/file";
 import authorRouter from "./routes/author.router";
 import bookRouter from "./routes/book.route";
 import path from "path";
+import reviewRouter from "./routes/review.router";
+import historyRouter from "./routes/history.router";
 
 // defining port
 const port = process.env.PORT || 8000;
@@ -29,6 +31,8 @@ app.use("/books", express.static(publicPath));
 app.use("/auth", authRouter);
 app.use("/author", authorRouter);
 app.use("/book", bookRouter);
+app.use("/review", reviewRouter);
+app.use("/router", historyRouter);
 
 app.post("/test", fileParser, (req, res) => {
   // console.log(req.body);
