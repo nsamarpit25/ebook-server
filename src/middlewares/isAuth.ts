@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { formatUserProfile, sendErrorResponse } from "../utils/helper";
 import { RequestHandler } from "express-serve-static-core";
 import userModel from "../models/user.model";
-import { AddReviewRequestHandler } from "../types";
+import { AddReviewRequestHandler, IsPurchasedByTheUserHandler } from "../types";
 
 declare global {
   namespace Express {
@@ -60,7 +60,7 @@ export const isAuthor: RequestHandler = (req, res, next) => {
   }
 };
 
-export const isPurchasedByUser: AddReviewRequestHandler = async (
+export const isPurchasedByUser: IsPurchasedByTheUserHandler = async (
   req,
   res,
   next
@@ -73,7 +73,7 @@ export const isPurchasedByUser: AddReviewRequestHandler = async (
   if (!user) {
     return sendErrorResponse({
       status: 403,
-      message: "You are not allowed to add review for this book.",
+      message: "Sorry we didn't found the book inside your library",
       res,
     });
   }

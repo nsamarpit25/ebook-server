@@ -196,7 +196,7 @@ export const newReviewSchema = z.object({
 });
 
 export const historyValidationSchema = z.object({
-  book: z
+  bookId: z
     .string({
       required_error: "Book id is missing!",
       invalid_type_error: "Invalid book id!",
@@ -233,6 +233,11 @@ export const historyValidationSchema = z.object({
       })
     )
     .optional(),
+
+  remove: z.boolean({
+    invalid_type_error: "Remove must be a boolean value",
+    required_error: "Remove is missing",
+  }),
 });
 
 export const validate = <T extends ZodRawShape>(

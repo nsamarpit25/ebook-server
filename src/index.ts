@@ -32,7 +32,7 @@ app.use("/auth", authRouter);
 app.use("/author", authorRouter);
 app.use("/book", bookRouter);
 app.use("/review", reviewRouter);
-app.use("/router", historyRouter);
+app.use("/history", historyRouter);
 
 app.post("/test", fileParser, (req, res) => {
   // console.log(req.body);
