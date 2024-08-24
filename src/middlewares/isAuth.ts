@@ -13,6 +13,7 @@ declare global {
         role: "user" | "author";
         avatar?: string;
         signedUp: Boolean;
+        authorId?: string;
       };
     }
   }
@@ -44,4 +45,16 @@ export const isAuth: RequestHandler = async (req, res, next) => {
 
   req.user = formatUserProfile(user);
   next();
+};
+
+export const isAuthor: RequestHandler = (req, res, next) => {
+  if (req.user.role === "author") {
+    next();
+  } else {
+    return sendErrorResponse({
+      message: "User must be author",
+      res,
+      status: 401,
+    });
+  }
 };
