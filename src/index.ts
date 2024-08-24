@@ -10,6 +10,8 @@ import bookRouter from "./routes/book.route";
 import path from "path";
 import reviewRouter from "./routes/review.router";
 import historyRouter from "./routes/history.router";
+import { isAuth, isValidReadingRequest } from "./middlewares/isAuth";
+import cartRouter from "./routes/cart.router";
 
 // defining port
 const port = process.env.PORT || 8000;
@@ -25,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use("/books", express.static(publicPath));
+app.use("/books", isAuth, isValidReadingRequest, express.static(publicPath));
 
 //routes
 app.use("/auth", authRouter);
@@ -33,6 +35,7 @@ app.use("/author", authorRouter);
 app.use("/book", bookRouter);
 app.use("/review", reviewRouter);
 app.use("/history", historyRouter);
+app.use("/cart", cartRouter);
 
 app.post("/test", fileParser, (req, res) => {
   // console.log(req.body);
