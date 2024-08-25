@@ -1,0 +1,379 @@
+[{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a0416"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "Murder Express",
+  "slug": "murder-something-66c9363ff9cff0009a8a0416",
+  "description": "Evaluations are completed with the same set of EPUB test books to ensure consistency. The test books are known to be accessible and free of errors. The different titles are described below, along with a link to download the latest version of each.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "thriller",
+  "publishedAt": {
+    "$date": "2020-12-05T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 120,
+    "sale": 100
+  },
+  "cover": {
+    "url": "https://res.cloudinary.com/dumq9n29v/image/upload/v1724533705/lbnpx5nqbqbuonch8at8.png",
+    "id": "lbnpx5nqbqbuonch8at8"
+  },
+  "fileInfo": {
+    "id": "66c9363ff9cff0009a8a0416-murder-express.epub",
+    "size": "48.85 KB"
+  },
+  "__v": 0,
+  "averageRating": 3.1666666666666665
+},
+{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a0417"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "Shadow of the Night",
+  "slug": "shadow-night-66c9363ff9cff0009a8a0417",
+  "description": "A gripping thriller with unexpected twists and turns. Download the latest version from the link below.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "thriller",
+  "publishedAt": {
+    "$date": "2021-01-15T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 150,
+    "sale": 120
+  },
+  "cover": {
+    "url": "",
+    "id": ""
+  },
+  "fileInfo": {
+    "size": "50.20 KB"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a0418"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "The Hidden Truth",
+  "slug": "hidden-truth-66c9363ff9cff0009a8a0418",
+  "description": "An intriguing mystery that keeps you on the edge of your seat. The latest version can be downloaded from the link below.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "mystery",
+  "publishedAt": {
+    "$date": "2021-02-20T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 130,
+    "sale": 110
+  },
+  "cover": {
+    "url": "",
+    "id": ""
+  },
+  "fileInfo": {
+    "size": "45.10 KB"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a0419"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "Deadly Secrets",
+  "slug": "deadly-secrets-66c9363ff9cff0009a8a0419",
+  "description": "A suspenseful thriller with a shocking ending. Find the latest version available for download at the link below.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "thriller",
+  "publishedAt": {
+    "$date": "2021-03-10T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 140,
+    "sale": 115
+  },
+  "cover": {
+    "url": "",
+    "id": ""
+  },
+  "fileInfo": {
+    "size": "52.30 KB"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a041a"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "The Silent Witness",
+  "slug": "silent-witness-66c9363ff9cff0009a8a041a",
+  "description": "A captivating thriller with twists that will keep you guessing. The latest version is available for download from the link below.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "thriller",
+  "publishedAt": {
+    "$date": "2021-04-25T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 160,
+    "sale": 130
+  },
+  "cover": {
+    "url": "",
+    "id": ""
+  },
+  "fileInfo": {
+    "size": "55.40 KB"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a041b"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "Fatal Attraction",
+  "slug": "fatal-attraction-66c9363ff9cff0009a8a041b",
+  "description": "A thrilling story of obsession and danger. The most recent version can be downloaded from the link below.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "thriller",
+  "publishedAt": {
+    "$date": "2021-05-15T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 170,
+    "sale": 140
+  },
+  "cover": {
+    "url": "",
+    "id": ""
+  },
+  "fileInfo": {
+    "size": "60.00 KB"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a041c"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "The Final Hour",
+  "slug": "final-hour-66c9363ff9cff0009a8a041c",
+  "description": "A high-stakes thriller that will keep you on edge. Download the latest version from the link below.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "thriller",
+  "publishedAt": {
+    "$date": "2021-06-10T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 180,
+    "sale": 150
+  },
+  "cover": {
+    "url": "",
+    "id": ""
+  },
+  "fileInfo": {
+    "size": "65.20 KB"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a041d"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "A Dangerous Game",
+  "slug": "dangerous-game-66c9363ff9cff0009a8a041d",
+  "description": "A story filled with suspense and action. The latest version can be downloaded from the link below.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "thriller",
+  "publishedAt": {
+    "$date": "2021-07-20T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 190,
+    "sale": 160
+  },
+  "cover": {
+    "url": "",
+    "id": ""
+  },
+  "fileInfo": {
+    "size": "70.00 KB"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a041e"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "Into the Abyss",
+  "slug": "into-abyss-66c9363ff9cff0009a8a041e",
+  "description": "A gripping tale of mystery and suspense. Find the latest version available for download from the link below.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "thriller",
+  "publishedAt": {
+    "$date": "2021-08-25T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 200,
+    "sale": 170
+  },
+  "cover": {
+    "url": "",
+    "id": ""
+  },
+  "fileInfo": {
+    "size": "75.00 KB"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a041f"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "The Last Stand",
+  "slug": "last-stand-66c9363ff9cff0009a8a041f",
+  "description": "An action-packed thriller with a compelling plot. The latest version can be downloaded from the link below.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "thriller",
+  "publishedAt": {
+    "$date": "2021-09-15T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 210,
+    "sale": 180
+  },
+  "cover": {
+    "url": "",
+    "id": ""
+  },
+  "fileInfo": {
+    "size": "80.00 KB"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a0420"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "A Web of Lies",
+  "slug": "web-lies-66c9363ff9cff0009a8a0420",
+  "description": "A captivating thriller that unravels secrets. The latest version is available for download from the link below.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "thriller",
+  "publishedAt": {
+    "$date": "2021-10-10T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 220,
+    "sale": 190
+  },
+  "cover": {
+    "url": "",
+    "id": ""
+  },
+  "fileInfo": {
+    "size": "85.00 KB"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a0421"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "The Hidden Agenda",
+  "slug": "hidden-agenda-66c9363ff9cff0009a8a0421",
+  "description": "A thrilling narrative that keeps you hooked. The latest version can be downloaded from the link below.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "thriller",
+  "publishedAt": {
+    "$date": "2021-11-05T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 230,
+    "sale": 200
+  },
+  "cover": {
+    "url": "",
+    "id": ""
+  },
+  "fileInfo": {
+    "size": "90.00 KB"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "66c9363ff9cff0009a8a0422"
+  },
+  "author": {
+    "$oid": "66c8fbbf5fbda92ca88627b8"
+  },
+  "title": "The Edge of Darkness",
+  "slug": "edge-darkness-66c9363ff9cff0009a8a0422",
+  "description": "An intense thriller that explores dark themes. Download the latest version from the link below.",
+  "language": "English",
+  "publicationName": "Dolphin",
+  "genre": "thriller",
+  "publishedAt": {
+    "$date": "2021-12-15T00:00:00.000Z"
+  },
+  "price": {
+    "mrp": 240,
+    "sale": 210
+  },
+  "cover": {
+    "url": "",
+    "id": ""
+  },
+  "fileInfo": {
+    "size": "95.00 KB"
+  },
+  "__v": 0
+}]

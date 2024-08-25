@@ -16,6 +16,7 @@ declare global {
         avatar?: string;
         signedUp: Boolean;
         authorId?: string;
+        books?: string[];
       };
     }
   }

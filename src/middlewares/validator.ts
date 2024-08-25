@@ -257,7 +257,6 @@ export const validate = <T extends ZodRawShape>(
   };
 };
 
-
 export const cartItemsSchema = z.object({
   items: z.array(
     z.object({
@@ -274,12 +273,10 @@ export const cartItemsSchema = z.object({
 
           return arg;
         }),
-      count: z
-        .number({
-          required_error: "Count is missing!",
-          invalid_type_error: "Count must be number!",
-        })
-        .nonnegative("Invalid count!"),
+      quantity: z.number({
+        required_error: "Quantity is missing!",
+        invalid_type_error: "Quantity must be number!",
+      }),
     })
   ),
 });
