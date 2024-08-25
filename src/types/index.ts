@@ -1,4 +1,5 @@
 import {
+  cartItemsSchema,
   historyValidationSchema,
   newAuthorSchema,
   newBookSchema,
@@ -13,15 +14,17 @@ type NewBookBody = z.infer<typeof newBookSchema>;
 type UpdateBookBody = z.infer<typeof updateBookSchema>;
 type AddReviewBody = z.infer<typeof newReviewSchema>;
 type BookHistoryBody = z.infer<typeof historyValidationSchema>;
+type CartBody = z.infer<typeof cartItemsSchema>;
 
-type PurchedByTheUserBody = { bookId: String };
+type PurchasedByTheUserBody = { bookId: String };
 
 export type IsPurchasedByTheUserHandler = RequestHandler<
   {},
   {},
-  PurchedByTheUserBody
+  PurchasedByTheUserBody
 >;
 export type RequestAuthorHandler = RequestHandler<{}, {}, AuthorHandlerBody>;
+export type CartRequestHandler = RequestHandler<{}, {}, CartBody>;
 export type CreateBookRequestHandler = RequestHandler<{}, {}, NewBookBody>;
 export type UpdateBookRequestHandler = RequestHandler<{}, {}, UpdateBookBody>;
 export type AddReviewRequestHandler = RequestHandler<{}, {}, AddReviewBody>;

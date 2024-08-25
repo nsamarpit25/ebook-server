@@ -8,7 +8,8 @@ export interface UserDoc {
   signedUp: boolean;
   avatar?: { url: string; id: string };
   authorId?: ObjectId;
-  books: ObjectId[]
+  books: ObjectId[];
+  orders?: ObjectId[];
 }
 
 const userSchema = new Schema<UserDoc>({
@@ -38,12 +39,20 @@ const userSchema = new Schema<UserDoc>({
   },
   authorId: {
     type: Schema.Types.ObjectId,
-    ref:"Author"
+    ref: "Author",
   },
-  books:[{
-    type:Schema.ObjectId,
-    ref:'Book'
-  }]
+  books: [
+    {
+      type: Schema.ObjectId,
+      ref: "Book",
+    },
+  ],
+  orders: [
+    {
+      type: Schema.ObjectId,
+      ref: "Order",
+    },
+  ],
 });
 
 const userModel = model("User", userSchema);
