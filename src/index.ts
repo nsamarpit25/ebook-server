@@ -6,7 +6,7 @@ import { errorHandler } from "./middlewares/error";
 import cookieParser from "cookie-parser";
 import { fileParser } from "./middlewares/file";
 import authorRouter from "./routes/author.router";
-import bookRouter from "./routes/book.route";
+import bookRouter from "./routes/book.router";
 import path from "path";
 import reviewRouter from "./routes/review.router";
 import historyRouter from "./routes/history.router";
