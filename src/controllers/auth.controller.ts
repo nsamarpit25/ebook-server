@@ -40,7 +40,6 @@ export const generateAuthLink: RequestHandler = async (req, res) => {
     to: user.email,
   });
 
-  console.log(req.body);
   res.json({
     message: "Please check your email for link.",
   });
@@ -83,20 +82,21 @@ export const verifyAuthToken: RequestHandler = async (req, res) => {
     expiresIn: "15d",
   });
 
+  const isDevModeOn = process.env.NODE_ENV === "development";
   res.cookie("authToken", authToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV !== "development",
-    sameSite: "strict",
+    secure: !isDevModeOn,
+    sameSite: isDevModeOn ? "strict" : "none",
     expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
   });
 
-  // res.redirect(
-  //   `${process.env.AUTH_SUCCESS_URL}?profile=${JSON.stringify(
-  //     formatUserProfile(user)
-  //   )}`
-  // );
+  res.redirect(
+    `${process.env.AUTH_SUCCESS_URL}?profile=${JSON.stringify(
+      formatUserProfile(user)
+    )}`
+  );
 
-  res.send();
+  // res.send();
 };
 
 export const sendProfileInfo: RequestHandler = (req, res) => {
@@ -129,7 +129,7 @@ export const updateProfile: RequestHandler = async (req, res) => {
   const file = req.files.avatar;
   if (file && !Array.isArray(file)) {
     const avatar = await updateAvatarToCloudinary(file, user.avatar?.id);
-    user.avatar = avatar
+    user.avatar = avatar;
 
     await user.save();
   }

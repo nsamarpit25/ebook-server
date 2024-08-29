@@ -344,7 +344,6 @@ export const generateBookAccessUrl: RequestHandler = async (req, res) => {
   });
 };
 
-
 interface RecommendedBooks {
   id: string;
   title: string;
@@ -389,7 +388,7 @@ export const getRecommendedBooks: RequestHandler = async (req, res) => {
   }
 
   const recommendedBooks = await BookModel.aggregate<AggregationResult>([
-    { $match: { genre: book.genre, _id: {$ne: book._id}} },
+    { $match: { genre: book.genre, _id: { $ne: book._id } } },
     {
       $lookup: {
         localField: "_id",
