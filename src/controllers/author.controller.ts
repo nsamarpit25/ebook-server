@@ -39,11 +39,9 @@ export const registerAuthor: RequestAuthorHandler = async (req, res) => {
 };
 
 export const getAuthorDetails: RequestHandler = async (req, res) => {
-  const { slug } = req.params;
-  const author = await AuthorModel.findOne({
-    slug,
-  });
-
+  const { id } = req.params;
+  const author = await AuthorModel.findById(id);
+  console.log(id)
   if (!author) {
     return sendErrorResponse({
       status: 404,
