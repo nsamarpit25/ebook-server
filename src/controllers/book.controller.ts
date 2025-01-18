@@ -39,7 +39,7 @@ export const createNewBook: CreateBookRequestHandler = async (req, res) => {
       size: formatFileSize(fileInfo.size),
       id: "",
     },
-    genre,
+    genre:genre.toLowerCase(),
     language,
     publicationName,
     publishedAt,
