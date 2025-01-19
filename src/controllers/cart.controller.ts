@@ -68,6 +68,7 @@ export const getCart: RequestHandler = async (req, res) => {
     cart: {
       id: cart._id,
       items: cart.items.map((item) => ({
+        quantity:item.quantity,
         product: {
           id: item.product._id,
           title: item.product.title,
