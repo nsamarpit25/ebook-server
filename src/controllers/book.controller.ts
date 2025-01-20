@@ -116,7 +116,7 @@ export const updateBook: UpdateBookRequestHandler = async (req, res) => {
   }
 
   book.description = description;
-  book.genre = genre;
+  book.genre = genre.toLowerCase();
   book.language = language;
   book.publicationName = publicationName;
   book.publishedAt = publishedAt;
