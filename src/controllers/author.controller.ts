@@ -53,7 +53,10 @@ export const getAuthorDetails: RequestHandler = async (req, res) => {
       status: 404,
     });
 
-  const avatar = author.userId.avatar?.url;
+  let avatar = "";
+  if (author.userId?.avatar?.url) {
+    avatar = author.userId.avatar?.url;
+  }
 
   res.json({
     id: author._id,

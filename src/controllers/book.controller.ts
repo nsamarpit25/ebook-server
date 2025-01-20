@@ -205,6 +205,7 @@ export const getAllPurchasedBooks: RequestHandler = async (req, res) => {
         cover: item.cover?.url,
         slug: item.slug,
         author: {
+          id: item.author._id,
           name: item.author.name,
           slug: item.author.slug,
         },
