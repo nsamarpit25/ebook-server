@@ -2,7 +2,7 @@ import { sendErrorResponse } from "@/utils/helper";
 import { RequestAuthorHandler } from "../types/index";
 import AuthorModel from "@/models/author.model";
 import slugify from "slugify";
-import userModel from "@/models/user.model";
+import userModel, { UserDoc } from "@/models/user.model";
 import { RequestHandler } from "express";
 import { BookDoc } from "@/models/book.model";
 
@@ -42,9 +42,10 @@ export const registerAuthor: RequestAuthorHandler = async (req, res) => {
 export const getAuthorDetails: RequestHandler = async (req, res) => {
   const { id } = req.params;
 
-  const author = await AuthorModel.findById(id).populate<{ books: BookDoc[] }>(
-    "books"
-  );
+  const author = await AuthorModel.findById(id)
+    .populate<{ userId: UserDoc }>("userId")
+    .populate<{ books: BookDoc[] }>("books");
+  // console.log(author);
   if (!author)
     return sendErrorResponse({
       res,
@@ -52,11 +53,14 @@ export const getAuthorDetails: RequestHandler = async (req, res) => {
       status: 404,
     });
 
+  const avatar = author.userId.avatar?.url;
+
   res.json({
     id: author._id,
     name: author.name,
     about: author.about,
     socialLinks: author.socialLinks,
+    avatar,
     books: author.books?.map((book) => {
       return {
         id: book._id?.toString(),
