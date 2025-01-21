@@ -1,6 +1,6 @@
 # Book Store API
 
-A full-stack book store application with comprehensive features for users and authors, built with modern technologies.
+A full-stack book store application enabling users to browse, purchase, and read books, with author publishing capabilities.
 
 ## Quick Start
 
@@ -51,6 +51,7 @@ A full-stack book store application with comprehensive features for users and au
    ```
 
 5. **Build for Production**
+
    ```bash
    npm run build
    npm start
@@ -78,98 +79,108 @@ A full-stack book store application with comprehensive features for users and au
 
 ### User Features
 
-- 🔐 Secure authentication system
+- 🔐 Secure email-link based authentication
 - 📚 Browse and purchase books
 - ⭐ Rate and review books
-- 📖 Track reading progress
+- 📖 Read purchased books online
 - 🛒 Shopping cart management
-- 💳 Secure payment processing
+- 💳 Secure payment processing via Stripe
 
 ### Author Features
 
 - ✍️ Author registration and verification
 - 📝 Book creation and management
-- 📊 Sales analytics
-- 💰 Earnings tracking
-- 📨 Communication with readers
-
-### Admin Features
-
-- 👥 User management
-- 📚 Content moderation
-- 💳 Payment oversight
-- 📊 Platform analytics
+- 📖 Book content management
 
 ## API Documentation
 
-### Authentication
+### Auth Routes
 
-| Method | Endpoint            | Description        |
-| ------ | ------------------- | ------------------ |
-| POST   | /auth/generate-link | Generate auth link |
-| GET    | /auth/verify        | Verify auth token  |
-| GET    | /auth/profile       | Get user profile   |
-| POST   | /auth/logout        | Logout user        |
-| PUT    | /auth/profile       | Update profile     |
+| Method | Endpoint | Description | Authentication Required |
+| --- | --- | --- | --- |
+| POST | /auth/generate-link | Generate magic link for authentication | No |
+| GET | /auth/verify | Verify authentication token | No |
+| GET | /auth/profile | Get user profile | Yes |
+| POST | /auth/logout | Logout user | Yes |
+| PUT | /auth/profile | Update user profile | Yes |
 
 ### Author Routes
 
-- **POST /author/register**: Register as an author
-- **PATCH /author/**: Update author details
-- **GET /author/:id**: Get author details
+| Method | Endpoint         | Description           | Authentication Required |
+| ------ | ---------------- | --------------------- | ----------------------- |
+| POST   | /author/register | Register as an author | Yes                     |
+| PATCH  | /author/         | Update author details | Yes                     |
+| GET    | /author/:id      | Get author details    | No                      |
 
 ### Book Routes
 
-- **POST /book/create**: Create a new book
-- **PATCH /book/**: Update book details
-- **GET /book/list**: Get all purchased books
-- **GET /book/details/:slug**: Get book public details
-- **GET /book/by-genre/:genre**: Get books by genre
-- **GET /book/read/:slug**: Generate book access URL
-- **GET /book/recommended/:bookId**: Get recommended books
+| Method | Endpoint | Description | Authentication Required |
+| --- | --- | --- | --- |
+| POST | /book/create | Create a new book | Yes (Author) |
+| PATCH | /book/ | Update book details | Yes (Author) |
+| GET | /book/list | Get all purchased books | Yes |
+| GET | /book/details/:slug | Get book public details | No |
+| GET | /book/by-genre/:genre | Get books by genre | No |
+| GET | /book/read/:slug | Generate book access URL | Yes |
+| GET | /book/recommended/:bookId | Get recommended books | No |
 
 ### Cart Routes
 
-- **POST /cart/**: Update cart
-- **GET /cart/**: Get cart details
-- **POST /cart/clear**: Clear cart
+| Method | Endpoint    | Description      | Authentication Required |
+| ------ | ----------- | ---------------- | ----------------------- |
+| POST   | /cart/      | Update cart      | Yes                     |
+| GET    | /cart/      | Get cart details | Yes                     |
+| POST   | /cart/clear | Clear cart       | Yes                     |
 
 ### Checkout Routes
 
-- **POST /checkout/**: Checkout cart
-- **POST /checkout/instant**: Instant checkout
+| Method | Endpoint | Description | Authentication Required |
+| --- | --- | --- | --- |
+| POST | /checkout/ | Checkout cart | Yes |
+| POST | /checkout/instant | Instant checkout for single book | Yes |
 
 ### Order Routes
 
-- **GET /order/**: Get all orders
-- **GET /order/check-status/:bookId**: Check order status
-- **POST /order/success**: Get order success status
+| Method | Endpoint | Description | Authentication Required |
+| --- | --- | --- | --- |
+| GET | /order/ | Get all orders | Yes |
+| GET | /order/check-status/:bookId | Check order status | Yes |
+| POST | /order/success | Handle successful order | Yes |
 
 ### Review Routes
 
-- **POST /review/**: Add a review
-- **GET /review/:bookId**: Get user review for a book
-- **GET /review/list/:bookId**: Get public reviews for a book
+| Method | Endpoint | Description | Authentication Required |
+| --- | --- | --- | --- |
+| POST | /review/ | Add a review | Yes |
+| GET | /review/:bookId | Get user review for a book | Yes |
+| GET | /review/list/:bookId | Get public reviews for a book | No |
 
 ### History Routes
 
-- **POST /history/**: Update book reading history
-- **GET /history/:bookId**: Get book reading history
+| Method | Endpoint | Description | Authentication Required |
+| --- | --- | --- | --- |
+| POST | /history/ | Update book reading history | Yes |
+| GET | /history/:bookId | Get book reading history | Yes |
 
 ### Webhook Routes
 
-- **POST /webhook/**: Handle Stripe payment webhook
+| Method | Endpoint  | Description                   | Authentication Required |
+| ------ | --------- | ----------------------------- | ----------------------- |
+| POST   | /webhook/ | Handle Stripe payment webhook | No                      |
 
-## Error Handling
+## Error Responses
 
-The API uses standard HTTP status codes:
+All endpoints return consistent error responses in the following format:
 
-- 200: Success
-- 400: Bad Request
-- 401: Unauthorized
-- 403: Forbidden
-- 404: Not Found
-- 500: Server Error
+```json
+{
+ "success": false,
+ "error": {
+  "message": "Error description",
+  "code": "ERROR_CODE"
+ }
+}
+```
 
 ## Security Features
 
@@ -179,19 +190,6 @@ The API uses standard HTTP status codes:
 - XSS protection
 - CORS configuration
 - Secure password hashing
-
-## Testing
-
-```bash
-# Run unit tests
-npm run test
-
-# Run integration tests
-npm run test:integration
-
-# Generate coverage report
-npm run test:coverage
-```
 
 ## Contributing
 
