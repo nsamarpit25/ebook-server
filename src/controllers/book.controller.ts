@@ -89,7 +89,7 @@ export const createNewBook: CreateBookRequestHandler = async (req, res) => {
 
 export const updateBook: UpdateBookRequestHandler = async (req, res) => {
   const { files, body, user } = req;
-  console.log(files, body, user);
+//   console.log(files, body, user);
   const {
     price,
     description,
