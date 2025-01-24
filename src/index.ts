@@ -1,3 +1,4 @@
+import "module-alias/register";
 import "express-async-errors";
 import "./db/connect";
 import express from "express";
