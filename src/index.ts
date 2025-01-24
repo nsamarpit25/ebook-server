@@ -21,6 +21,11 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import { sendErrorResponse } from "./utils/helper";
 
+process.on("uncaughtException", (err) => {
+ console.error("UNCAUGHT EXCEPTION! 💥 Shutting down...", err);
+ process.exit(1);
+});
+
 const checkDbConnection: express.RequestHandler = (req, res, next) => {
  if (mongoose.connection.readyState !== 1) {
   return sendErrorResponse({
@@ -73,6 +78,26 @@ app.post("/test", fileParser, (req, res) => {
 // middleware to handle errors
 app.use(errorHandler);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
  console.log(`listening on port ${port}`);
+});
+
+// Graceful shutdown
+process.on("unhandledRejection", (err: Error) => {
+ console.error(
+  "UNHANDLED REJECTION! 💥 Shutting down...",
+  err.name,
+  err.message
+ );
+ server.close(() => {
+  process.exit(1);
+ });
+});
+
+process.on("SIGTERM", () => {
+ console.log("👋 SIGTERM RECEIVED. Shutting down gracefully");
+ server.close(() => {
+  console.log("💥 Process terminated!");
+  mongoose.connection.close();
+ });
 });
