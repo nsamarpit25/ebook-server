@@ -16,6 +16,20 @@ import checkoutRouter from "./routes/checkout.route";
 import webhookRouter from "./routes/webhook.router";
 import orderRouter from "./routes/order.router";
 import cors from "cors";
+import morgan from "morgan";
+import mongoose from "mongoose";
+import { sendErrorResponse } from "./utils/helper";
+
+const checkDbConnection: express.RequestHandler = (req, res, next) => {
+ if (mongoose.connection.readyState !== 1) {
+  return sendErrorResponse({
+   status: 503,
+   message: "Database connection failed",
+   res,
+  });
+ }
+ next();
+};
 
 // defining port
 const port = process.env.PORT || 8000;
@@ -31,9 +45,12 @@ app.use(cors({ origin: [process.env.APP_URL!], credentials: true }));
 app.use("/webhook", webhookRouter);
 
 //middlewares
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(checkDbConnection);
 
 app.use("/books", isAuth, isValidReadingRequest, express.static(publicPath));
 //routes
@@ -47,14 +64,14 @@ app.use("/checkout", checkoutRouter);
 app.use("/order", orderRouter);
 
 app.post("/test", fileParser, (req, res) => {
-  // console.log(req.body);
-  console.log(req.files);
-  res.json({});
+ // console.log(req.body);
+ //  console.log(req.files);
+ res.json({});
 });
 
 // middleware to handle errors
 app.use(errorHandler);
 
 app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+ console.log(`listening on port ${port}`);
 });
