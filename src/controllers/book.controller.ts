@@ -222,9 +222,10 @@ export const updateBook: UpdateBookRequestHandler = async (req, res) => {
     contentType: fileInfo?.type || newBookFile.mimetype,
     uniqueKey: fileName,
    });
-
+   book.markModified("fileInfo");
    book.fileInfo.id = fileName;
    // console.log(fileUploadUrl);
+   console.log(fileName);
   }
  }
  await book.save();
@@ -404,6 +405,8 @@ export const generateBookAccessUrl: RequestHandler = async (req, res) => {
   Bucket: process.env.AWS_PRIVATE_BUCKET!,
   Key: book.fileInfo.id,
  });
+
+ console.log(book.fileInfo.id);
 
  const accessUrl = await getSignedUrl(s3Client, getCommand);
  res.json({
