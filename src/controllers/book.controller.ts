@@ -222,7 +222,9 @@ export const updateBook: UpdateBookRequestHandler = async (req, res) => {
     contentType: fileInfo?.type || newBookFile.mimetype,
     uniqueKey: fileName,
    });
-   console.log(fileUploadUrl);
+
+   book.fileInfo.id = fileName;
+   // console.log(fileUploadUrl);
   }
  }
  await book.save();
