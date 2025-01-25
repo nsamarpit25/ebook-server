@@ -1,4 +1,4 @@
-// import "module-alias/register";
+import "module-alias/register";
 import "express-async-errors";
 import "./db/connect";
 import express from "express";
@@ -20,6 +20,7 @@ import cors from "cors";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import { sendErrorResponse } from "./utils/helper";
+import searchRouter from "./routes/search.router";
 
 process.on("uncaughtException", (err) => {
  console.error("UNCAUGHT EXCEPTION! 💥 Shutting down...", err);
@@ -68,6 +69,7 @@ app.use("/history", historyRouter);
 app.use("/cart", cartRouter);
 app.use("/checkout", checkoutRouter);
 app.use("/order", orderRouter);
+app.use("/search", searchRouter);
 
 app.post("/test", fileParser, (req, res) => {
  // console.log(req.body);

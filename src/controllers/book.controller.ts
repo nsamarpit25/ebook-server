@@ -443,7 +443,7 @@ export interface AggregationResult {
   _id: ObjectId;
  };
  slug: string;
- averageRatings?: number;
+ averageRating?: number;
 }
 
 export const getRecommendedBooks: RequestHandler = async (req, res) => {
@@ -470,11 +470,11 @@ export const getRecommendedBooks: RequestHandler = async (req, res) => {
   },
   {
    $addFields: {
-    averageRatings: { $avg: "$reviews.rating" },
+    averageRating: { $avg: "$reviews.rating" },
    },
   },
   {
-   $sort: { averageRatings: -1 },
+   $sort: { averageRating: -1 },
   },
   {
    $limit: 5,
@@ -487,7 +487,7 @@ export const getRecommendedBooks: RequestHandler = async (req, res) => {
     genre: 1,
     price: 1,
     cover: 1,
-    averageRatings: 1,
+    averageRating: 1,
    },
   },
  ]);
@@ -502,7 +502,7 @@ export const getRecommendedBooks: RequestHandler = async (req, res) => {
    sale: (book.price.sale / 100).toFixed(2),
   },
   cover: book.cover?.url,
-  rating: book.averageRatings?.toFixed(1),
+  rating: book.averageRating?.toFixed(1),
  }));
 
  res.json(result);
