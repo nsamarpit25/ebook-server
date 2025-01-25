@@ -47,7 +47,16 @@ const app = express();
 const publicPath = path.join(__dirname, "./books");
 // console.log(publicPath);
 
-app.use(cors({ origin: [process.env.APP_URL!], credentials: true }));
+app.use(
+ cors({
+  origin: [
+   "https://ebook-reactapp.vercel.app",
+   "https://localhost:8000",
+   process.env.APP_URL!,
+  ],
+  credentials: true,
+ })
+);
 //for payment
 app.use("/webhook", webhookRouter);
 
