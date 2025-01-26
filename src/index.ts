@@ -52,6 +52,7 @@ app.use(
   origin: [
    "https://ebook-reactapp.vercel.app",
    "https://localhost:8000",
+   "https://ebookreactapp.netlify.app",
    process.env.APP_URL!,
   ],
   credentials: true,
