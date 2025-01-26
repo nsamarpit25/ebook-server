@@ -84,14 +84,14 @@ export const verifyAuthToken: RequestHandler = async (req, res) => {
   expiresIn: "15d",
  });
 
- res.cookie("authToken", authToken, {
-  httpOnly: true,
-  secure: true,
-  // secure: process.env.NODE_ENV !== "development",
-  sameSite: "none",
-  expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
-  domain: "ebook-reactapp.vercel.app",
- });
+ //  res.cookie("authToken", authToken, {
+ //   httpOnly: true,
+ //   secure: true,
+ //   // secure: process.env.NODE_ENV !== "development",
+ //   sameSite: "none",
+ //   expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
+ //   domain: "ebook-reactapp.vercel.app",
+ //  });
 
  res.redirect(
   `${process.env.AUTH_SUCCESS_URL}?profile=${JSON.stringify(
