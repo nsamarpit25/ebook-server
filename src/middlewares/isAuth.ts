@@ -25,23 +25,10 @@ declare global {
 export const isAuth: RequestHandler = async (req, res, next) => {
  let authToken = req.cookies.authToken;
 
- const customFieldIndex = req.rawHeaders.findIndex(
-  (header, index) => header.toLowerCase() === "react-token" && index % 2 === 0
- );
- const customField =
-  customFieldIndex !== -1 ? req.rawHeaders[customFieldIndex + 1] : null;
+ console.log("authToken", authToken);
+ console.log("token", req.headers.token);
 
- let token = authToken ? customField?.split("=")[1] : null;
- //  console.log(token);
-
- if (token && token.endsWith('"')) {
-  token = token.slice(0, -1); // Remove the last character (double quote)
- }
-
- if (!authToken) {
-  authToken = token;
- }
- console.log(token);
+ if (!authToken) authToken = req.headers.token as string;
 
  if (!authToken) {
   return sendErrorResponse({
