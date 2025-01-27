@@ -104,3 +104,41 @@ export const updateAuthor: RequestAuthorHandler = async (req, res) => {
 
  res.json({ message: "Your details have been updated successfully." });
 };
+
+export const getBooks: RequestHandler = async (req, res) => {
+ const authorId = req.user.authorId;
+
+ const author = await AuthorModel.findById(authorId).populate<{
+  books: BookDoc[];
+ }>("books");
+
+ if (!author) {
+  return sendErrorResponse({
+   res,
+   message: "Author not found!",
+   status: 404,
+  });
+ }
+
+ res.json({
+  id: author?._id,
+  name: author?.name,
+  about: author?.about,
+  socialLinks: author?.socialLinks,
+  books: author?.books?.map((book) => {
+   return {
+    id: book._id?.toString(),
+    title: book.title,
+    slug: book.slug,
+    genre: book.genre,
+    price: {
+     mrp: (book.price.mrp / 100).toFixed(2),
+     sale: (book.price.sale / 100).toFixed(2),
+    },
+    cover: book.cover?.url,
+    rating: book.averageRating?.toFixed(1),
+    status: "published",
+   };
+  }),
+ });
+};
