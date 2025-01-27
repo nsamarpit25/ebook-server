@@ -22,6 +22,7 @@ import {
  GetObjectCommand,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import bookRouter from "@/routes/book.router";
 
 export const createNewBook: CreateBookRequestHandler = async (req, res) => {
  const { files, body, user } = req;
@@ -35,6 +36,7 @@ export const createNewBook: CreateBookRequestHandler = async (req, res) => {
   publishedAt,
   title,
   uploadMethod,
+  status,
  } = body;
 
  const { cover, book } = files;
@@ -43,6 +45,8 @@ export const createNewBook: CreateBookRequestHandler = async (req, res) => {
   // ...body,
   price,
   description,
+  copiesSold: 0,
+  status,
   fileInfo: {
    size: formatFileSize(fileInfo.size),
    id: "",
@@ -107,6 +111,9 @@ export const createNewBook: CreateBookRequestHandler = async (req, res) => {
   $push: { books: newBook._id },
  });
  await newBook.save();
+ await userModel.findByIdAndUpdate(req.user.id, {
+  $push: { books: newBook._id },
+ });
 
  //  console.log(fileUploadUrl);
  res.send(fileUploadUrl);
@@ -126,6 +133,7 @@ export const updateBook: UpdateBookRequestHandler = async (req, res) => {
   title,
   uploadMethod,
   slug,
+  status,
  } = body;
 
  //  console.log(req);
@@ -150,6 +158,7 @@ export const updateBook: UpdateBookRequestHandler = async (req, res) => {
  book.publishedAt = publishedAt;
  book.title = title;
  book.price = price;
+ book.status = status;
 
  if (uploadMethod === "local") {
   if (
@@ -305,6 +314,7 @@ export const getBooksPublicDetails: RequestHandler = async (req, res) => {
   averageRating,
   price: { mrp, sale },
   fileInfo,
+  status,
  } = book;
 
  res.json({
@@ -312,6 +322,7 @@ export const getBooksPublicDetails: RequestHandler = async (req, res) => {
    id: _id,
    title,
    genre,
+   status,
    language,
    slug,
    description,
@@ -341,6 +352,7 @@ export const getBookByGenre: RequestHandler = async (req, res) => {
  res.json({
   books: books.map((book) => {
    const {
+    status,
     _id,
     title,
     cover,
@@ -375,6 +387,23 @@ export const generateBookAccessUrl: RequestHandler = async (req, res) => {
    message: "Book not found!",
    res,
   });
+
+ //  if (req.user.authorId) {
+ //   if (book.author.toString() === req.user.authorId) {
+ //    const getCommand = new GetObjectCommand({
+ //     Bucket: process.env.AWS_PRIVATE_BUCKET!,
+ //     Key: book.fileInfo.id,
+ //    });
+
+ //    // console.log(book.fileInfo.id);
+
+ //    const accessUrl = await getSignedUrl(s3Client, getCommand);
+ //    return res.json({
+ //     settings: { lastLocation: "", highlights: [{ selection: "", fill: "" }] },
+ //     url: accessUrl,
+ //    });
+ //   }
+ //  }
 
  const user = await userModel.findOne({ books: book._id, _id: req.user.id });
  if (!user)
@@ -506,4 +535,61 @@ export const getRecommendedBooks: RequestHandler = async (req, res) => {
  }));
 
  res.json(result);
+};
+
+export const deleteBook: RequestHandler = async (req, res) => {
+ const { bookId } = req.params;
+ const deleteMethodAddedDate = 1737942815856;
+
+ if (!isValidObjectId(bookId)) {
+  return sendErrorResponse({ message: "Invalid book id!", res, status: 422 });
+ }
+
+ const book = await BookModel.findById({
+  _id: bookId,
+  author: req.user.authorId,
+ }); // .populate("author");
+
+ if (!book) {
+  return sendErrorResponse({ message: "Book not found!", res, status: 404 });
+ }
+
+ const bookCreationTime = book._id.getTimestamp().getTime();
+ if (bookCreationTime <= deleteMethodAddedDate) {
+  return res.json({ success: false });
+ }
+
+ if (book.copiesSold > 0) {
+  return res.json({
+   success: false,
+   message: "Book has been sold, cannot delete",
+  });
+ }
+ // remove the book from the author's books array
+ await BookModel.findByIdAndDelete(book._id);
+
+ const author = await AuthorModel.findById(req.user.authorId);
+
+ if (author) {
+  author.books = author.books.filter(
+   (id) => id.toString() !== book._id.toString()
+  );
+  await author.save();
+ }
+
+ const coverId = book.cover?.id;
+ const bookFileId = book.fileInfo.id;
+ if (coverId) {
+  await cloudinary.uploader.destroy(coverId);
+ }
+
+ if (bookFileId) {
+  const deleteCommand = new DeleteObjectCommand({
+   Bucket: process.env.AWS_PRIVATE_BUCKET!,
+   Key: bookFileId,
+  });
+  await s3Client.send(deleteCommand);
+ }
+
+ res.send({ success: true });
 };

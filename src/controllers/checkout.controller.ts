@@ -133,6 +133,9 @@ export const instantCheckout: RequestHandler = async (req, res) => {
   });
  }
 
+ product.copiesSold += 1;
+ await product.save();
+
  const newOrder = await OrderModel.create({
   userId: req.user.id,
   orderItems: {

@@ -137,7 +137,7 @@ export const getBooks: RequestHandler = async (req, res) => {
     },
     cover: book.cover?.url,
     rating: book.averageRating?.toFixed(1),
-    status: "published",
+    status: book.status,
    };
   }),
  });
