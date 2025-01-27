@@ -1,4 +1,4 @@
-import { sendErrorResponse } from "@/utils/helper";
+import { formatUserProfile, sendErrorResponse } from "@/utils/helper";
 import { RequestAuthorHandler } from "../types/index";
 import AuthorModel from "@/models/author.model";
 import slugify from "slugify";
@@ -31,12 +31,24 @@ export const registerAuthor: RequestAuthorHandler = async (req, res) => {
  newAuthor.slug = uniqueSlug;
  await newAuthor.save();
 
- await userModel.findByIdAndUpdate(user.id, {
-  authorId: newAuthor._id,
-  role: "author",
- });
+ const updatedUser = await userModel.findByIdAndUpdate(
+  user.id,
+  {
+   authorId: newAuthor._id,
+   role: "author",
+  },
+  { new: true }
+ );
 
- res.json({ message: "Thanks for registering as an author." });
+ let userResult;
+ if (updatedUser) {
+  userResult = formatUserProfile(updatedUser);
+ }
+
+ res.json({
+  message: "Thanks for registering as an author.",
+  user: userResult,
+ });
 };
 
 export const getAuthorDetails: RequestHandler = async (req, res) => {
