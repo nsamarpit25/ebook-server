@@ -603,7 +603,7 @@ export const getRandomPublicBooksDetails: RequestHandler = async (req, res) => {
   ]);
 
   const books = randomBook.map((book) => {
-    return formatBook(book);
+    return { ...formatBook(book), description: book.description };
   });
 
   res.send({ status: 200, books });
