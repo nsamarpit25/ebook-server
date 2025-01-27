@@ -24,14 +24,16 @@ const schema = new Schema<OrderDocument>(
     orderItems: [
       {
         id: { type: Schema.Types.ObjectId, ref: "Book", required: true },
-        price: { type: Number, required: true },
-        totalPrice: { type: Number, required: true },
-        qty: { type: Number, required: true },
+        // prices stored in cents
+        price: { type: Number, required: true, min: 0 },
+        totalPrice: { type: Number, required: true, min: 0 },
+        qty: { type: Number, required: true, min: 1 },
       },
     ],
     stripeCustomerId: String,
     paymentId: String,
-    totalAmount: Number,
+    // totalAmount stored in cents
+    totalAmount: { type: Number, min: 0 },
     paymentStatus: String,
     paymentErrorMessage: String,
   },
