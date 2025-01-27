@@ -2,7 +2,7 @@ import userModel from "@/models/user.model";
 import { RequestHandler } from "express";
 import fs from "fs";
 import { isValidObjectId, ObjectId, Types } from "mongoose";
-import path from "path";
+import path, { format } from "path";
 import slugify from "slugify";
 import cloudinary from "../cloud/cloudinary";
 import AuthorModel from "../models/author.model";
@@ -14,7 +14,7 @@ import {
  UploadBookToLocalDir,
  uploadCoverToCloudinary,
 } from "../utils/fileUpload";
-import { formatFileSize, sendErrorResponse } from "../utils/helper";
+import { formatBook, formatFileSize, sendErrorResponse } from "../utils/helper";
 import s3Client from "@/cloud/aws";
 import {
  DeleteObjectCommand,
@@ -592,4 +592,19 @@ export const deleteBook: RequestHandler = async (req, res) => {
  }
 
  res.send({ success: true });
+};
+
+export const getRandomPublicBooksDetails: RequestHandler = async (req, res) => {
+ const { number } = req.params;
+
+ const randomBook = await BookModel.aggregate([
+  { $sample: { size: Number(number) } },
+  { $match: { cover: { $ne: null } } },
+ ]);
+
+ const books = randomBook.map((book) => {
+  return formatBook(book);
+ });
+
+ res.send({ status: 200, books });
 };

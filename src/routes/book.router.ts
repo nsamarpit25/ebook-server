@@ -6,6 +6,7 @@ import {
  getAllPurchasedBooks,
  getBookByGenre,
  getBooksPublicDetails,
+ getRandomPublicBooksDetails,
  getRecommendedBooks,
  updateBook,
 } from "../controllers/book.controller";
@@ -38,6 +39,7 @@ bookRouter.patch(
 );
 
 bookRouter.get("/list", isAuth, getAllPurchasedBooks);
+bookRouter.get("/random/:number", getRandomPublicBooksDetails);
 bookRouter.get("/details/:slug", getBooksPublicDetails);
 bookRouter.get("/by-genre/:genre", getBookByGenre);
 bookRouter.get("/read/:slug", isAuth, generateBookAccessUrl);
