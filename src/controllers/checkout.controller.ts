@@ -132,10 +132,10 @@ export const instantCheckout: RequestHandler = async (req, res) => {
       status: 404,
     });
   }
-
+  //   console.log("first");
   product.copiesSold += 1;
-  product.price = product.price;
-  await product.save();
+  //   product.price = product.price;
+  //   await product.save();
 
   const newOrder = await OrderModel.create({
     userId: req.user.id,

@@ -215,12 +215,12 @@ const bookSchema = new Schema<BookDoc>({
 });
 
 bookSchema.pre("save", function (next) {
+  //   console.log("here");
   if (this.isNew) {
     const { mrp, sale } = this.price;
     this.price = { mrp: mrp * 100, sale: sale * 100 };
-
-    next();
   }
+  next();
 });
 
 const BookModel = model("Book", bookSchema);

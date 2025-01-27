@@ -23,19 +23,19 @@ import { sendErrorResponse } from "./utils/helper";
 import searchRouter from "./routes/search.router";
 
 process.on("uncaughtException", (err) => {
- console.error("UNCAUGHT EXCEPTION! 💥 Shutting down...", err);
- process.exit(1);
+  console.error("UNCAUGHT EXCEPTION! 💥 Shutting down...", err);
+  process.exit(1);
 });
 
 const checkDbConnection: express.RequestHandler = (req, res, next) => {
- if (mongoose.connection.readyState !== 1) {
-  return sendErrorResponse({
-   status: 503,
-   message: "Database connection failed",
-   res,
-  });
- }
- next();
+  if (mongoose.connection.readyState !== 1) {
+    return sendErrorResponse({
+      status: 503,
+      message: "Database connection failed",
+      res,
+    });
+  }
+  next();
 };
 
 // defining port
@@ -48,15 +48,15 @@ const publicPath = path.join(__dirname, "./books");
 // console.log(publicPath);
 
 app.use(
- cors({
-  origin: [
-   "https://ebook-reactapp.vercel.app",
-   "https://localhost:8000",
-   "https://ebookreactapp.netlify.app",
-   process.env.APP_URL!,
-  ],
-  credentials: true,
- })
+  cors({
+    origin: [
+      "https://ebook-reactapp.vercel.app",
+      "https://localhost:8000",
+      "https://ebookreactapp.netlify.app",
+      process.env.APP_URL!,
+    ],
+    credentials: true,
+  })
 );
 //for payment
 app.use("/webhook", webhookRouter);
@@ -82,34 +82,34 @@ app.use("/order", orderRouter);
 app.use("/search", searchRouter);
 
 app.post("/test", fileParser, (req, res) => {
- // console.log(req.body);
- //  console.log(req.files);
- res.json({});
+  // console.log(req.body);
+  //  console.log(req.files);
+  res.json({});
 });
 
 // middleware to handle errors
 app.use(errorHandler);
 
 const server = app.listen(port, () => {
- console.log(`listening on port ${port}`);
+  console.log(`listening on port ${port}`);
 });
 
 // Graceful shutdown
 process.on("unhandledRejection", (err: Error) => {
- console.error(
-  "UNHANDLED REJECTION! 💥 Shutting down...",
-  err.name,
-  err.message
- );
- server.close(() => {
-  process.exit(1);
- });
+  console.error(
+    "UNHANDLED REJECTION! 💥 Shutting down...",
+    err.name,
+    err.message
+  );
+  server.close(() => {
+    process.exit(1);
+  });
 });
 
-process.on("SIGTERM", () => {
- console.log("👋 SIGTERM RECEIVED. Shutting down gracefully");
- server.close(() => {
-  console.log("💥 Process terminated!");
-  mongoose.connection.close();
- });
-});
+// process.on("SIGTERM", () => {
+//  console.log("👋 SIGTERM RECEIVED. Shutting down gracefully");
+//  server.close(() => {
+//   console.log("💥 Process terminated!");
+//   mongoose.connection.close();
+//  });
+// });
