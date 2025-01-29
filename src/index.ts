@@ -54,6 +54,7 @@ app.use(
       "https://localhost:8000",
       "https://ebookreactapp.netlify.app",
       "https://ebookstore.samarpitnagpal.dev",
+      "https://ebook.samarpitnagpal.dev",
       process.env.APP_URL!,
     ],
     credentials: true,
